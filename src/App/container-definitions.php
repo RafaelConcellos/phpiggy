@@ -1,5 +1,10 @@
 <?php
-#container--definitions
+#container-definitions
 declare(strict_types=1);
 
-return [];
+use Framework\TemplateEngine;
+use App\Config\Paths;
+
+return [
+    TemplateEngine::class => fn() => new TemplateEngine(Paths::VIEW)
+];
