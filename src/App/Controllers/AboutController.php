@@ -11,10 +11,7 @@ use App\Config\Paths;
 class AboutController
 {
 
-    public function __construct(private TemplateEngine $view)
-    {
-        $this->view = new TemplateEngine(Paths::VIEW);
-    }
+    public function __construct(private TemplateEngine $view) {}
 
     public function about()
     {

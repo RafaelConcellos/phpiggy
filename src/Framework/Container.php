@@ -8,11 +8,11 @@ namespace Framework;
 use Framework\Exceptions\ContainerExeption;
 use ReflectionClass;
 use ReflectionNamedType;
-use ReflectionType;
 
 class Container
 {
     private array $definitions = [];
+    private array $resolved = [];
 
     public function addDefinitions(array $newDefinitions)
     {
@@ -66,8 +66,14 @@ class Container
             throw new ContainerExeption("The following class ID does not exist in container.");
         }
 
+        if (array_key_exists($id, $this->resolved)) {
+            return $this->resolved[$id];
+        }
+
         $factory = $this->definitions[$id];  # $this->definitions[$id] returns the factory function (arrow function), responsible for generating an instance of the class.
         $dependency = $factory();  # assign the the return value os the factory function to $dependency.
+
+        $this->resolved[$id] = $dependency;
 
         return $dependency;
     }
